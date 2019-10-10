@@ -15,9 +15,6 @@ namespace Capstone.Classes
         public string ItemClass { get; set; }
         public int ItemQty { get; set; } = 50;
 
-        //string directory = Directory.GetCurrentDirectory();
-        //string file = "cateringsystem.csv";
-        //string path = Path.Combine(directory, file);
 
         public string PrintItemMenu()
         {
@@ -64,7 +61,6 @@ namespace Capstone.Classes
                         {
                             Console.Write("Dessert".PadRight(15));
                         }
-                        //Console.Write(cateringItem.ItemClass.PadRight(15));
                         Console.WriteLine(cateringItem.ItemQty.ToString().PadRight(15));
 
 
