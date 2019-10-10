@@ -6,6 +6,7 @@ namespace Capstone.Classes
 {
     public class UserInterface
     {
+        //**ALL USER INTERACTION HAPPENS HERE**
         // This class provides all user communications, but not much else.
         // All the "work" of the application should be done elsewhere
         // All instance of Console.ReadLine and Console.WriteLine should be in this class.
@@ -14,13 +15,33 @@ namespace Capstone.Classes
 
         public void RunInterface()
         {
-            bool done = false;
-            while (!done)
+            CateringItem cateringItem = new CateringItem();
+            PrintMenu();
+            string userInput = Console.ReadLine();
+            while (userInput != "3")
             {
-                Console.WriteLine("This is the UserInterface");
-                Console.ReadLine();
+                    switch(userInput)
+                {
+                    case "1":
+                        cateringItem.PrintItemMenu();
+                        return;
+                    case "2":
+                        
+                        break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Please make a valid selection.");
+                        Console.WriteLine();
+                        return;
+                }
             }
 
+        }
+        private void PrintMenu()
+        {
+            Console.WriteLine("(1) Display Catering Items");
+            Console.WriteLine("(2) Order");
+            Console.WriteLine("(3) Quit");
         }
     }
 }
