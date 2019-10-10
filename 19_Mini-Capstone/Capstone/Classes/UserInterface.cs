@@ -92,7 +92,11 @@ namespace Capstone.Classes
                 itemCodeEntered = Console.ReadLine();
             }
         }
-
+        public void CompleteTrasaction()
+        {
+            Console.WriteLine("Thank you for your business! ");
+            Console.ReadLine();
+        }
     }
 }
 
