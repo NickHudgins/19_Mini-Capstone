@@ -91,13 +91,29 @@ namespace Capstone.Classes
             Console.WriteLine("Please enter amount to desposit. ");
             string amountDeposited = Console.ReadLine();
 
+<<<<<<< HEAD
 
 
+=======
+            
+>>>>>>> 1cd269da5763a279d734c72be606d92334121ad7
         }
         public void ProductSelection()
         {
             Console.WriteLine("Please enter the product code you'd like to add to your cart. ");
-            string codeEntered = Console.ReadLine();
+            string itemCodeEntered = Console.ReadLine();
+            CateringItem cateringItem = new CateringItem();
+
+            while (itemCodeEntered != cateringItem.ItemCode)
+            {
+                Console.WriteLine("Please enter a valid Item Code. ");
+                itemCodeEntered = Console.ReadLine();
+            }
+        }
+        public void CompleteTrasaction()
+        {
+            Console.WriteLine("Thank you for your business! ");
+            Console.ReadLine();
         }
     }
 }
