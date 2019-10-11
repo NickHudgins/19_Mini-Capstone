@@ -7,35 +7,85 @@ namespace Capstone.Classes
     public class Catering
     {
         public decimal Balance { get; private set; } = 0;
-        private List<CateringItem> items = new List<CateringItem>();
+        List<CateringItem> items = new List<CateringItem>();
+        List<CateringItem> shoppingCart = new List<CateringItem>();
+        FileAccess fileAccess = new FileAccess();
+       
+        public void ConvertList()
+        {
+            fileAccess.ConvertInfoToList();
+            items.AddRange(fileAccess.menu);
+        }
+
+        //CONSTRUCTOR
+        public Catering()
+        {
+            ConvertList();
+        }
+  
+
 
         //Methods
-        public decimal AddMoneyEquation(int nums)
+
+        public string PrintItemMenu()
+        {
+            string itemCode = "Item Code: ".PadRight(10);
+            string itemName = "Item Name: ".PadRight(25);
+            string itemPrice = "Price: ".PadRight(15);
+            string itemClass = "Class: ".PadRight(15);
+            string itemQty = "Qty: ".PadRight(15);
+            Console.WriteLine(itemCode + itemName + itemPrice + itemClass + itemQty);
+            Console.WriteLine("----------------------------------------------------------------------");
+
+            foreach (CateringItem listItem in items)
+            {
+                Console.Write(listItem.ItemCode.ToString().PadRight(10));
+                Console.Write(listItem.ItemName.ToString().PadRight(25));
+                Console.Write($"${listItem.ItemPrice}".ToString().PadRight(15));
+                if (listItem.ItemClass == "A")
+                {
+                    Console.Write("Appetizer".PadRight(15));
+                }
+                if (listItem.ItemClass == "B")
+                {
+                    Console.Write("Beverage".PadRight(15));
+                }
+                if (listItem.ItemClass == "E")
+                {
+                    Console.Write("Entree".PadRight(15));
+                }
+                if (listItem.ItemClass == "D")
+                {
+                    Console.Write("Dessert".PadRight(15));
+                }
+                Console.WriteLine(listItem.ItemQty.ToString().PadRight(15));
+            }
+            return null;
+        }
+
+
+        public void AddMoneyEquation(int nums)
         {
             Balance += nums;
-            return Balance;
+            return;
         }
 
-        public string AddToShoppingCart(CateringItem item, int desiredQty)
+        public void AddToShoppingCart(CateringItem item, int desiredQty)
         {
-            FileAccess fileAccess = new FileAccess();
-            if (fileAccess.ReadItemMenu(item) == true)
+            foreach (CateringItem listItem in items)
             {
-                if (item.ItemQty < desiredQty)
+                if (listItem.ItemCode == item.ItemCode)
                 {
-                    Console.WriteLine("There are currently Qty " + item.ItemQty + " of this product in stock. Please add a different item to the shopping cart.");
+                    shoppingCart.Add(item);
+                    item.ItemQty -= desiredQty;
                 }
-
-                items.Add(item);
-                item.ItemQty -= desiredQty;
-                string messageOne = "You have successfully added ";
-                string messageTwo = " of the ";
-                string messageThree = " in your shopping cart.";
-
-                return messageOne + desiredQty + messageTwo + item.ItemName + messageThree;
             }
-            return "We currently do not have your desired amount of this product. Please enter in a different amount, or try to purchase a different item.";
-
+            
+            return;
         }
+
+
+
     }
 }
+

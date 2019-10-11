@@ -11,9 +11,11 @@ namespace Capstone.Classes
 
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
-        public string ItemPrice { get; set; }
+        public decimal ItemPrice { get; set; }
         public string ItemClass { get; set; }
         public int ItemQty { get; set; } = 50;
+
+
 
 
         
