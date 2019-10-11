@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Capstone.Classes
 {
-    class FileAccess
+    class FileAccess 
     {
         // This class should contain any and all details of access to files
         public string PrintItemMenu()
@@ -64,7 +64,7 @@ namespace Capstone.Classes
             return null;
         }
 
-        public void ReadItemMenu()
+        public bool ReadItemMenu(CateringItem item)
         {
             string sourceFile = "C:\\Users\\carters\\Team Exercises\\team1-c-sharp-week4-pair-exercises\\19_Mini-Capstone\\cateringsystem.csv";
             if (File.Exists(sourceFile))
@@ -74,10 +74,15 @@ namespace Capstone.Classes
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        
+                        if (line.Contains(item.ToString()))
+                        {
+                            return true;
+                        }
                     }
                 }
+                
             }
+            return false;
         }
     }
 }

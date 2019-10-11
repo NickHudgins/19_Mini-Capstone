@@ -6,26 +6,28 @@ namespace Capstone.Classes
 {
     public class Catering
     {
-        // This class should contain all the "work" for catering
-
+        public decimal Balance { get; private set; } = 0;
         private List<CateringItem> items = new List<CateringItem>();
-        double balance = 0;
 
+        //Methods
         public string AddMoneyEquation(int nums)
         {
-            if (balance + nums > 5000)
+            if (Balance + nums > 5000)
             {
-                Console.WriteLine("Your account balance cannot exceed $5000. Please enter a different amount to deposit.");
+                Console.Write("Your account balance cannot exceed $5000. Please enter a different amount to deposit. ");
+                nums = int.Parse(Console.ReadLine());
             }
-            balance += nums;
-            string success = "You deposit was successful! You new balance is $";
-            return success + balance + ".";   
+            else if (Balance + nums <= 5000)
+            {
+                Balance += nums; 
+            }
+            return $"You deposit was successful! You new balance is ${Balance}";
         }
 
         public string AddToShoppingCart(CateringItem item, int desiredQty)
         {
-            string filepath = 
-            if (item.ItemCode == "a")
+            FileAccess fileAccess = new FileAccess();
+            if (fileAccess.ReadItemMenu(item) == true) 
             {
                 if (item.ItemQty < desiredQty)
                 {
@@ -38,10 +40,9 @@ namespace Capstone.Classes
                     string messageTwo = " of the ";
                     string messageThree = " in your shopping cart.";
 
-                    return messageOne + desiredQty + messageTwo + item.ItemName + messageThree;
-                
-                
+                    return messageOne + desiredQty + messageTwo + item.ItemName + messageThree;   
             }
+            return "We currently do not have your desired amount of this product. Please enter in a different amount, or try to purchase a different item.";
 
         }
     }

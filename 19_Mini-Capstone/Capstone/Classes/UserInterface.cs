@@ -4,18 +4,22 @@ using System.Text;
 
 namespace Capstone.Classes
 {
+
     public class UserInterface
     {
+        internal FileAccess FileAccess { get => fileAccess; set => fileAccess = value; }
+
         //**ALL USER INTERACTION HAPPENS HERE**
         // This class provides all user communications, but not much else.
         // All the "work" of the application should be done elsewhere
         // All instance of Console.ReadLine and Console.WriteLine should be in this class.
 
         private Catering catering = new Catering();
+        public CateringItem cateringItem = new CateringItem();
+        private FileAccess fileAccess = new FileAccess();
 
         public void RunInterface()
         {
-            FileAccess fileAccess = new FileAccess();
             PrintMenu();
             string userInput = Console.ReadLine();
             while (userInput != "3")
@@ -23,7 +27,7 @@ namespace Capstone.Classes
                 switch (userInput)
                 {
                     case "1":
-                        fileAccess.PrintItemMenu();
+                        FileAccess.PrintItemMenu();
                         Console.WriteLine();
                         Console.WriteLine("(1) Return To Main Menu");
                         string if1 = Console.ReadLine();
@@ -64,7 +68,7 @@ namespace Capstone.Classes
             Console.WriteLine("To add money: press 1 ");
             Console.WriteLine("To select products: press 2 ");
             Console.WriteLine("To complete transaction, press 3 ");
-            Console.WriteLine("Your current balance is: ");
+            Console.WriteLine("Your current balance is: " + catering.Balance);
 
             string selection = Console.ReadLine();
 
@@ -88,21 +92,18 @@ namespace Capstone.Classes
         }
         public void AddMoney()
         {
-            Console.WriteLine("Please enter amount to desposit. ");
+            Console.WriteLine($"Current Balance: {catering.Balance}");
+            Console.Write("Please enter amount to desposit: ");
             string amountDeposited = Console.ReadLine();
-
-<<<<<<< HEAD
-
-
-=======
-            
->>>>>>> 1cd269da5763a279d734c72be606d92334121ad7
+            catering.AddMoneyEquation(int.Parse(amountDeposited));
+            Console.ReadLine();
+            return;
         }
         public void ProductSelection()
         {
             Console.WriteLine("Please enter the product code you'd like to add to your cart. ");
             string itemCodeEntered = Console.ReadLine();
-            CateringItem cateringItem = new CateringItem();
+            
 
             while (itemCodeEntered != cateringItem.ItemCode)
             {
