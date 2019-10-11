@@ -59,7 +59,6 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Display Catering Items");
             Console.WriteLine("(2) Order");
             Console.WriteLine("(3) Quit");
-
         }
 
 
@@ -68,6 +67,7 @@ namespace Capstone.Classes
             Console.WriteLine("To add money: press 1 ");
             Console.WriteLine("To select products: press 2 ");
             Console.WriteLine("To complete transaction, press 3 ");
+
             Console.WriteLine("Your current balance is: " + catering.Balance);
 
             string selection = Console.ReadLine();
@@ -89,12 +89,17 @@ namespace Capstone.Classes
                         break;
                 }
             }
+            double currentBalance = 0;
+            Console.WriteLine("Your current balance is " + currentBalance);
+            Console.WriteLine();
         }
+
         public void AddMoney()
         {
             Console.WriteLine($"Current Balance: {catering.Balance}");
             Console.Write("Please enter amount to desposit: ");
             string amountDeposited = Console.ReadLine();
+
             catering.AddMoneyEquation(int.Parse(amountDeposited));
             Console.ReadLine();
             return;

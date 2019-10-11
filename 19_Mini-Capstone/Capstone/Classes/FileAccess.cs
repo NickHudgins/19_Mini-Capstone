@@ -84,6 +84,19 @@ namespace Capstone.Classes
             }
             return false;
         }
-    }
+        public string OnScreenReport()
+        {
+
+            string code = "Total Qty: ".PadRight(10);
+            string itemClass = "Class: ".PadRight(25);
+            string item = "Item: ".PadRight(15);
+            string individual = "Price Per Item: ".PadRight(15);
+            string itemTotal = "Item Total Price: ".PadRight(15);
+            string amountDue = "Your total amount due is: ";
+            Console.WriteLine(code + itemClass + item + individual + item);
+            Console.WriteLine("----------------------------------------------------------------------");
+
+            Console.WriteLine(amountDue + "");
+        }
 }
 
