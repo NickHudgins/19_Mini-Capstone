@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Capstone.Classes
 {
-    class FileAccess 
+    class FileAccess
     {
         // This class should contain any and all details of access to files
         public string PrintItemMenu()
@@ -80,11 +80,11 @@ namespace Capstone.Classes
                         }
                     }
                 }
-                
+
             }
             return false;
         }
-        public string OnScreenReport()
+        /*public string OnScreenReport()
         {
 
             string code = "Total Qty: ".PadRight(10);
@@ -97,6 +97,7 @@ namespace Capstone.Classes
             Console.WriteLine("----------------------------------------------------------------------");
 
             Console.WriteLine(amountDue + "");
-        }
+        }*/
+    }
 }
 

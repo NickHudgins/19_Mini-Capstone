@@ -100,8 +100,18 @@ namespace Capstone.Classes
             Console.Write("Please enter amount to desposit: ");
             string amountDeposited = Console.ReadLine();
 
-            catering.AddMoneyEquation(int.Parse(amountDeposited));
+            int maxBalance = 5000;
+            if (int.Parse(amountDeposited) + catering.Balance > maxBalance)
+            {
+                Console.WriteLine("Balance cannot exceed $5000");
+            }
+            if (int.Parse(amountDeposited) + catering.Balance <= maxBalance)
+            {
+                catering.AddMoneyEquation(int.Parse(amountDeposited));
+            }
+            
             Console.ReadLine();
+            
             return;
         }
         public void ProductSelection()
