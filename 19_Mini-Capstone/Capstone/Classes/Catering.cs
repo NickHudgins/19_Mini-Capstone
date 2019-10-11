@@ -86,9 +86,15 @@ namespace Capstone.Classes
                     listItem.ItemQty -= desiredQty;
                 }
             }
-            
         }
     }
 }
+
+
+
+
+
+
+
 
 

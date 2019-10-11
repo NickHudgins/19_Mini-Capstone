@@ -34,13 +34,7 @@ namespace Capstone.Classes
 
             }
 
-
-
         }
-
-
-
-
     }
 }
 

@@ -111,6 +111,20 @@ namespace Capstone.Classes
             }
 
             Console.ReadLine();
+            Console.WriteLine($"Current Balance: {catering.Balance}");
+            Console.WriteLine("To return to the Main Menu, press the X key. " );
+            string returnToMainMenu = Console.ReadLine();
+
+            if (returnToMainMenu == "X" || returnToMainMenu == "x")
+            {
+                Console.Clear();
+            }
+            while (true)
+            {
+                Console.Clear();
+                this.RunInterface();
+                break;
+            }
 
             return;
         }
@@ -120,6 +134,7 @@ namespace Capstone.Classes
             List<CateringItem> list = new List<CateringItem>();
             list.AddRange(catering.items);
             Console.Write("Please enter the product code you'd like to add to your cart: ");
+
             string desiredItem = Console.ReadLine();
             foreach (CateringItem listItem in list)
             {
@@ -155,8 +170,6 @@ namespace Capstone.Classes
                 else if (listItem.ItemCode == desiredItem) { Console.WriteLine("This is not a valid product code. Please type in a correct product code."); }
             }
         }
-
-
 
 
         public void CompleteTrasaction()
