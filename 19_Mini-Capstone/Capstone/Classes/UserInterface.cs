@@ -51,7 +51,6 @@ namespace Capstone.Classes
             Console.WriteLine("To add money: press 1 ");
             Console.WriteLine("To select products: press 2 ");
             Console.WriteLine("To complete transaction, press 3 ");
-            Console.WriteLine("Your current balance is: ");
 
             string selection = Console.ReadLine();
 
@@ -72,7 +71,11 @@ namespace Capstone.Classes
                         break;
                 }
             }
+            double currentBalance = 0;
+            Console.WriteLine("Your current balance is " + currentBalance);
+            Console.WriteLine();
         }
+
         public void AddMoney()
         {
             Console.WriteLine("Please enter amount to desposit. ");

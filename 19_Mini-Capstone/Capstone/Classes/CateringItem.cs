@@ -74,4 +74,12 @@ namespace Capstone.Classes
         }
 
     }
+    public class CompleteTransaction
+    {
+        
+    }
+
+
+
+
 }
