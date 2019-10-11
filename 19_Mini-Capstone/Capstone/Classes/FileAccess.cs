@@ -34,47 +34,17 @@ namespace Capstone.Classes
 
             }
 
-           
-        }
-        public string OnScreenReport()
-        {
 
-            string code = "Total Qty: ".PadRight(10);
-            string itemClass = "Class: ".PadRight(25);
-            string item = "Item: ".PadRight(15);
-            string individual = "Price Per Item: ".PadRight(15);
-            string itemTotal = "Item Total Price: ".PadRight(15);
-            string amountDue = "Your total amount due is: ";
-            Console.WriteLine(code + itemClass + item + individual + item);
-            Console.WriteLine("----------------------------------------------------------------------");
 
-            Console.WriteLine(amountDue + "");
-            return null;
         }
+
+
+
 
     }
 }
 
-//public bool ContentsTest(string item)
-//{
-//    string sourceFile = "C:\\Users\\carters\\Team Exercises\\team1-c-sharp-week4-pair-exercises\\19_Mini-Capstone\\cateringsystem.csv";
-//    if (File.Exists(sourceFile))
-//    {
-//        using (StreamReader sr = new StreamReader(sourceFile))
-//        {
-//            while (!sr.EndOfStream)
-//            {
-//                CateringItem newItem = new CateringItem();
-//                string line = sr.ReadLine();
-//                if (line.Contains(item))
-//                {
-//                    return true;
-//                }
-//            }
-//        }
-//    }
-//    return false;
-//}
+
 
 
 
