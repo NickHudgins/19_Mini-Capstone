@@ -15,15 +15,28 @@ namespace Capstone.Classes
 
         public void RunInterface()
         {
-            CateringItem cateringItem = new CateringItem();
+            FileAccess fileAccess = new FileAccess();
             PrintMenu();
             string userInput = Console.ReadLine();
             while (userInput != "3")
             {
-                    switch(userInput)
+                switch (userInput)
                 {
                     case "1":
-                        cateringItem.PrintItemMenu();
+                        fileAccess.PrintItemMenu();
+                        Console.WriteLine();
+                        Console.WriteLine("(1) Return To Main Menu");
+                        string if1 = Console.ReadLine();
+                        switch (if1)
+                        {
+                            case "1":
+                                UserInterface userInterface = new UserInterface();
+                                userInterface.RunInterface();
+                                break;
+                            default:
+                                Console.WriteLine("This is not a valid answer. Please type '1' to return to main menu.");
+                                return;
+                        }
                         return;
                     case "2":
                         OrderingInterface();
@@ -42,7 +55,6 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Display Catering Items");
             Console.WriteLine("(2) Order");
             Console.WriteLine("(3) Quit");
-
         }
 
 
@@ -80,8 +92,6 @@ namespace Capstone.Classes
         {
             Console.WriteLine("Please enter amount to desposit. ");
             string amountDeposited = Console.ReadLine();
-
-            
         }
         public void ProductSelection()
         {
