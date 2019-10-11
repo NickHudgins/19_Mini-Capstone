@@ -27,7 +27,7 @@ namespace Capstone.Classes
                 switch (userInput)
                 {
                     case "1":
-                        FileAccess.PrintItemMenu();
+                        catering.PrintItemMenu();
                         Console.WriteLine();
                         Console.WriteLine("(1) Return To Main Menu");
                         string if1 = Console.ReadLine();
@@ -131,8 +131,18 @@ namespace Capstone.Classes
         }
         public void ProductSelection()
         {
-            Console.WriteLine("Please enter the product code you'd like to add to your cart. ");
+            Console.Write("Please enter the product code you'd like to add to your cart: ");
             string itemCodeEntered = Console.ReadLine();
+<<<<<<< HEAD
+=======
+           // if (fileAccess.ContentsTest(itemCodeEntered) == true)
+            {
+                Console.WriteLine("Please enter the quantity you would like to purchase today: ");
+                int desiredQty = int.Parse(Console.ReadLine());
+             //   if (desiredQty > cateringItem.) { }
+            }
+            
+>>>>>>> e6520bf3cd66d123f647ed7403bab21f7df8aee6
 
             if (itemCodeEntered != cateringItem.ItemCode)
             {
