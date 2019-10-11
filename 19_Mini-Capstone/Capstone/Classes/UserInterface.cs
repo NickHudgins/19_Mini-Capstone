@@ -109,23 +109,50 @@ namespace Capstone.Classes
             {
                 catering.AddMoneyEquation(int.Parse(amountDeposited));
             }
-            
             Console.ReadLine();
-            
+
+
+            bool repeat = false;
+            Console.WriteLine($"Current Balance: {catering.Balance}");
+            Console.WriteLine("To return to the Main Menu, press the X key. " );
+            string returnToMainMenu = Console.ReadLine();
+
+            if (returnToMainMenu == "X" || returnToMainMenu == "x")
+            {
+                Console.Clear();
+            }
+            while (true)
+            {
+                Console.Clear();
+                this.RunInterface();
+                break;
+            }
             return;
         }
         public void ProductSelection()
         {
             Console.WriteLine("Please enter the product code you'd like to add to your cart. ");
             string itemCodeEntered = Console.ReadLine();
-            
 
-            while (itemCodeEntered != cateringItem.ItemCode)
+            if (itemCodeEntered != cateringItem.ItemCode)
             {
                 Console.WriteLine("Please enter a valid Item Code. ");
                 itemCodeEntered = Console.ReadLine();
             }
-        }
+            
+            //FileAccess fileAccess = new FileAccess();
+            //if (fileAccess.ReadItemMenu(itemCodeEntered) == true)
+            //{
+            //    if (item.ItemQty < desiredQty)
+            //    {
+            //        Console.WriteLine("There are currently Qty " + item.ItemQty + " of this product in stock. Please add a different item to the shopping cart.");
+            //    }
+            //    string messageOne = "You have successfully added ";
+            //    string messageTwo = " of the ";
+            //    string messageThree = " in your shopping cart.";
+
+            //    return messageOne + desiredQty + messageTwo + item.ItemName + messageThree;
+            }
         public void CompleteTrasaction()
         {
             Console.WriteLine("Thank you for your business! ");

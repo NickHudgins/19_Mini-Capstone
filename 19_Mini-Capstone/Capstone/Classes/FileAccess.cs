@@ -74,7 +74,7 @@ namespace Capstone.Classes
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        if (line.Contains(item.ToString()))
+                        if (line.Contains(""))
                         {
                             return true;
                         }
