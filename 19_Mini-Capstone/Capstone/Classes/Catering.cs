@@ -7,10 +7,10 @@ namespace Capstone.Classes
     public class Catering
     {
         public decimal Balance { get; private set; } = 0;
-        List<CateringItem> items = new List<CateringItem>();
+        public List<CateringItem> items = new List<CateringItem>();
         List<CateringItem> shoppingCart = new List<CateringItem>();
         FileAccess fileAccess = new FileAccess();
-       
+
         public void ConvertList()
         {
             fileAccess.ConvertInfoToList();
@@ -22,10 +22,16 @@ namespace Capstone.Classes
         {
             ConvertList();
         }
-  
+
 
 
         //Methods
+
+        public List<CateringItem> ReturnItemsList()
+        {
+            return items;
+        }
+
 
         public string PrintItemMenu()
         {
@@ -70,22 +76,19 @@ namespace Capstone.Classes
             return;
         }
 
-        public void AddToShoppingCart(CateringItem item, int desiredQty)
+        public void AddToShoppingCart(string item, int desiredQty)
         {
             foreach (CateringItem listItem in items)
             {
-                if (listItem.ItemCode == item.ItemCode)
+                if (listItem.ItemCode == item)
                 {
-                    shoppingCart.Add(item);
-                    item.ItemQty -= desiredQty;
+                    shoppingCart.Add(listItem);
+                    listItem.ItemQty -= desiredQty;
                 }
             }
             
-            return;
         }
-
-
-
     }
 }
+
 

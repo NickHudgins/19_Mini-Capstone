@@ -54,13 +54,13 @@ namespace Capstone.Classes
             }
 
         }
+
         private void PrintMenu()
         {
             Console.WriteLine("(1) Display Catering Items");
             Console.WriteLine("(2) Order");
             Console.WriteLine("(3) Quit");
         }
-
 
         public void OrderingInterface()
         {
@@ -109,29 +109,56 @@ namespace Capstone.Classes
             {
                 catering.AddMoneyEquation(int.Parse(amountDeposited));
             }
-            
+
             Console.ReadLine();
-            
+
             return;
         }
+
         public void ProductSelection()
         {
+            List<CateringItem> list = new List<CateringItem>();
+            list.AddRange(catering.items);
             Console.Write("Please enter the product code you'd like to add to your cart: ");
-            string itemCodeEntered = Console.ReadLine();
-           // if (fileAccess.ContentsTest(itemCodeEntered) == true)
+            string desiredItem = Console.ReadLine();
+            foreach (CateringItem listItem in list)
             {
-                Console.WriteLine("Please enter the quantity you would like to purchase today: ");
-                int desiredQty = int.Parse(Console.ReadLine());
-             //   if (desiredQty > cateringItem.) { }
-            }
-            
+                if (listItem.ItemCode == desiredItem)
+                {
+                    Console.Write("Please enter the quantity you would like to purchase: ");
+                    int desiredQty = int.Parse(Console.ReadLine());
 
-            while (itemCodeEntered != cateringItem.ItemCode)
-            {
-                Console.WriteLine("Please enter a valid Item Code. ");
-                itemCodeEntered = Console.ReadLine();
+                    if (listItem.ItemQty >= desiredQty)
+                    {
+                        catering.AddToShoppingCart(desiredItem, desiredQty);
+                        Console.WriteLine($"You have successfully added {listItem.ItemName} (Qty {desiredQty}) to your cart.");
+                        Console.WriteLine("(1) Return To Main Menu");
+                        Console.WriteLine("(2) Add Another Item");
+                        string userInput = Console.ReadLine();
+                        switch(userInput)
+                        {
+                            case "1":
+                                RunInterface();
+                                break;
+                            case "2":
+                                ProductSelection();
+                                break;
+                            default:
+                                {
+                                    Console.WriteLine("This not a valid selection. Please type '1' or '2'.");
+                                }
+                                break;
+                        }
+                    }
+                    else if (listItem.ItemQty < desiredQty) { Console.WriteLine($"There are only {listItem.ItemQty} of this product in stock. Please type in a different quantity."); }
+                }
+                else if (listItem.ItemCode == desiredItem) { Console.WriteLine("This is not a valid product code. Please type in a correct product code."); }
             }
         }
+
+
+
+
         public void CompleteTrasaction()
         {
             Console.WriteLine("Thank you for your business! ");
