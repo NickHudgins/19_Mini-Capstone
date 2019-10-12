@@ -119,7 +119,6 @@ namespace Capstone.Classes
                 Console.WriteLine($"The money was sucessfully deposited into you account. Your current balance is now ${catering.Balance}.");
             }
             Console.WriteLine();
-
             Console.WriteLine("(1) Return To Main Menu");
             Console.WriteLine("(2) Add More Money");
             string userInput = Console.ReadLine();
