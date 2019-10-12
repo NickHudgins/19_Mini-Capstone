@@ -112,7 +112,7 @@ namespace Capstone.Classes
             Console.ReadLine();
 
 
-            bool repeat = false;
+            
             Console.WriteLine($"Current Balance: {catering.Balance}");
             Console.WriteLine("To return to the Main Menu, press the X key. " );
             string returnToMainMenu = Console.ReadLine();
@@ -133,8 +133,7 @@ namespace Capstone.Classes
         {
             Console.Write("Please enter the product code you'd like to add to your cart: ");
             string itemCodeEntered = Console.ReadLine();
-<<<<<<< HEAD
-=======
+
            // if (fileAccess.ContentsTest(itemCodeEntered) == true)
             {
                 Console.WriteLine("Please enter the quantity you would like to purchase today: ");
@@ -142,7 +141,7 @@ namespace Capstone.Classes
              //   if (desiredQty > cateringItem.) { }
             }
             
->>>>>>> e6520bf3cd66d123f647ed7403bab21f7df8aee6
+
 
             if (itemCodeEntered != cateringItem.ItemCode)
             {

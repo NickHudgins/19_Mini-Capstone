@@ -70,29 +70,29 @@ namespace Capstone.Classes
             return;
         }
 
-        public void AddToShoppingCart(CateringItem item, int desiredQty)
-        {
-<<<<<<< HEAD
-                items.Add(item);
-                item.ItemQty -= desiredQty;
-            return "";
-        }
-=======
-            foreach (CateringItem listItem in items)
-            {
-                if (listItem.ItemCode == item.ItemCode)
-                {
-                    shoppingCart.Add(item);
-                    item.ItemQty -= desiredQty;
-                }
-            }
+//        public void AddToShoppingCart(CateringItem item, int desiredQty)
+//        {
+//<<<<<<< HEAD
+//                items.Add(item);
+//                item.ItemQty -= desiredQty;
+//            return "";
+//        }
+//=======
+//            foreach (CateringItem listItem in items)
+//            {
+//                if (listItem.ItemCode == item.ItemCode)
+//                {
+//                    shoppingCart.Add(item);
+//                    item.ItemQty -= desiredQty;
+//                }
+//            }
             
-            return;
-        }
+//            return;
+//        }
 
 
 
->>>>>>> e6520bf3cd66d123f647ed7403bab21f7df8aee6
+
     }
 }
 
