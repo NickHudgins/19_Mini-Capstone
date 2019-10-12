@@ -76,27 +76,7 @@ namespace Capstone.Classes
             return;
         }
 
-<<<<<<< HEAD
-//        public void AddToShoppingCart(CateringItem item, int desiredQty)
-//        {
-//<<<<<<< HEAD
-//                items.Add(item);
-//                item.ItemQty -= desiredQty;
-//            return "";
-//        }
-//=======
-//            foreach (CateringItem listItem in items)
-//            {
-//                if (listItem.ItemCode == item.ItemCode)
-//                {
-//                    shoppingCart.Add(item);
-//                    item.ItemQty -= desiredQty;
-//                }
-//            }
-            
-//            return;
-//        }
-=======
+
         public void AddToShoppingCart(string item, int desiredQty)
         {
             foreach (CateringItem listItem in items)
@@ -114,14 +94,10 @@ namespace Capstone.Classes
 
 
 
->>>>>>> 4b55a85982ac5f8708756f0361ad46b65211146c
 
 
 
 
-<<<<<<< HEAD
-    }
-}
-=======
->>>>>>> 4b55a85982ac5f8708756f0361ad46b65211146c
+
+
 

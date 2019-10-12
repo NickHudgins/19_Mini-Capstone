@@ -110,12 +110,12 @@ namespace Capstone.Classes
                 catering.AddMoneyEquation(int.Parse(amountDeposited));
             }
 
-<<<<<<< HEAD
+
 
             
-=======
+
             Console.ReadLine();
->>>>>>> 4b55a85982ac5f8708756f0361ad46b65211146c
+
             Console.WriteLine($"Current Balance: {catering.Balance}");
             Console.WriteLine("To return to the Main Menu, press the X key. " );
             string returnToMainMenu = Console.ReadLine();
@@ -139,7 +139,7 @@ namespace Capstone.Classes
             List<CateringItem> list = new List<CateringItem>();
             list.AddRange(catering.items);
             Console.Write("Please enter the product code you'd like to add to your cart: ");
-<<<<<<< HEAD
+
             string itemCodeEntered = Console.ReadLine();
 
            // if (fileAccess.ContentsTest(itemCodeEntered) == true)
@@ -150,8 +150,7 @@ namespace Capstone.Classes
             }
             
 
-=======
->>>>>>> 4b55a85982ac5f8708756f0361ad46b65211146c
+
 
             string desiredItem = Console.ReadLine();
             foreach (CateringItem listItem in list)
