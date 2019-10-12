@@ -18,9 +18,18 @@ namespace Capstone.Classes
         public CateringItem cateringItem = new CateringItem();
         private FileAccess fileAccess = new FileAccess();
 
+
         public void RunInterface()
         {
+            catering.ConvertList();
+            MainMenu();
+        }
+
+        public void MainMenu()
+        {
+            Console.WriteLine();
             PrintMenu();
+            Console.WriteLine();
             string userInput = Console.ReadLine();
             while (userInput != "3")
             {
@@ -29,13 +38,14 @@ namespace Capstone.Classes
                     case "1":
                         catering.PrintItemMenu();
                         Console.WriteLine();
-                        Console.WriteLine("(1) Return To Main Menu");
+                        Console.WriteLine("(1) Return To Main Menu ");
+                        Console.WriteLine();
                         string if1 = Console.ReadLine();
                         switch (if1)
                         {
                             case "1":
                                 UserInterface userInterface = new UserInterface();
-                                userInterface.RunInterface();
+                                userInterface.MainMenu();
                                 break;
                             default:
                                 Console.WriteLine("This is not a valid answer. Please type '1' to return to main menu.");
@@ -52,10 +62,10 @@ namespace Capstone.Classes
                         return;
                 }
             }
-
         }
 
-        private void PrintMenu()
+
+            private void PrintMenu()
         {
             Console.WriteLine("(1) Display Catering Items");
             Console.WriteLine("(2) Order");
@@ -64,96 +74,96 @@ namespace Capstone.Classes
 
         public void OrderingInterface()
         {
-            Console.WriteLine("To add money: press 1 ");
-            Console.WriteLine("To select products: press 2 ");
-            Console.WriteLine("To complete transaction, press 3 ");
-
-            Console.WriteLine("Your current balance is: " + catering.Balance);
+            Console.WriteLine();
+            Console.WriteLine("(1) Add Money");
+            Console.WriteLine("(2) Select Products");
+            Console.WriteLine("(3) Complete Transaction");
+            Console.WriteLine("Current Account Balance: $" + catering.Balance);
+            Console.WriteLine();
 
             string selection = Console.ReadLine();
-
-            while (selection != "3")
+            switch (selection)
             {
-                switch (selection)
-                {
-                    case "1":
-                        AddMoney();
-                        break;
+                case "1":
+                    AddMoney();
+                    break;
 
-                    case "2":
-                        ProductSelection();
-                        break;
+                case "2":
+                    ProductSelection();
+                    break;
+                case "3":
+                    CompleteTransaction();
+                    break;
 
-                    default:
-                        Console.WriteLine("Please Enter Valid Selection. ");
-                        break;
-                }
+                default:
+                    Console.WriteLine("Please Enter Valid Selection. ");
+                    break;
             }
-            double currentBalance = 0;
-            Console.WriteLine("Your current balance is " + currentBalance);
             Console.WriteLine();
+
         }
 
         public void AddMoney()
         {
-            Console.WriteLine($"Current Balance: {catering.Balance}");
+            int maxBalance = 5000;
+            Console.WriteLine();
             Console.Write("Please enter amount to desposit: ");
             string amountDeposited = Console.ReadLine();
-
-            int maxBalance = 5000;
             if (int.Parse(amountDeposited) + catering.Balance > maxBalance)
             {
-                Console.WriteLine("Balance cannot exceed $5000");
+                Console.WriteLine("Your account balance cannot exceed $5000.");
             }
             if (int.Parse(amountDeposited) + catering.Balance <= maxBalance)
             {
                 catering.AddMoneyEquation(int.Parse(amountDeposited));
+                Console.WriteLine($"The money was sucessfully deposited into you account. Your current balance is now ${catering.Balance}.");
             }
+            Console.WriteLine();
 
-            Console.ReadLine();
-            Console.WriteLine($"Current Balance: {catering.Balance}");
-            Console.WriteLine("To return to the Main Menu, press the X key. " );
-            string returnToMainMenu = Console.ReadLine();
-
-            if (returnToMainMenu == "X" || returnToMainMenu == "x")
+            Console.WriteLine("(1) Return To Main Menu");
+            Console.WriteLine("(2) Add More Money");
+            string userInput = Console.ReadLine();
+            switch (userInput)
             {
-                Console.Clear();
-            }
-            while (true)
-            {
-                Console.Clear();
-                this.RunInterface();
-                break;
+                case "1":
+                    MainMenu();
+                    break;
+                case "2":
+                    AddMoney();
+                    break;
+                default:
+                    {
+                        Console.WriteLine("This is not a valid answer. Please type in '1' or '2'.");
+                    }
+                    break;
             }
 
-            return;
         }
 
         public void ProductSelection()
         {
-            List<CateringItem> list = new List<CateringItem>();
-            list.AddRange(catering.items);
+            Console.WriteLine();
             Console.Write("Please enter the product code you'd like to add to your cart: ");
-
             string desiredItem = Console.ReadLine();
-            foreach (CateringItem listItem in list)
+            foreach (CateringItem listItem in catering.items)
             {
-                if (listItem.ItemCode == desiredItem)
+                if (listItem.ItemCode.ToLower() == desiredItem.ToLower())
                 {
                     Console.Write("Please enter the quantity you would like to purchase: ");
                     int desiredQty = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
 
-                    if (listItem.ItemQty >= desiredQty)
+                    if (int.Parse(listItem.ItemQty) >= desiredQty)
                     {
                         catering.AddToShoppingCart(desiredItem, desiredQty);
                         Console.WriteLine($"You have successfully added {listItem.ItemName} (Qty {desiredQty}) to your cart.");
                         Console.WriteLine("(1) Return To Main Menu");
                         Console.WriteLine("(2) Add Another Item");
                         string userInput = Console.ReadLine();
-                        switch(userInput)
+                        switch (userInput)
                         {
                             case "1":
-                                RunInterface();
+                                MainMenu();
                                 break;
                             case "2":
                                 ProductSelection();
@@ -165,18 +175,59 @@ namespace Capstone.Classes
                                 break;
                         }
                     }
-                    else if (listItem.ItemQty < desiredQty) { Console.WriteLine($"There are only {listItem.ItemQty} of this product in stock. Please type in a different quantity."); }
+                    else if (int.Parse(listItem.ItemQty) < desiredQty)
+                    {
+                        Console.WriteLine("There is not enough of this product in stock to purchase.");
+                        Console.WriteLine("(1) Return To Main Menu");
+                        Console.WriteLine("(2) Add Another Item");
+                        string userInput = Console.ReadLine();
+                        switch (userInput)
+                        {
+                            case "1":
+                                MainMenu();
+                                break;
+                            case "2":
+                                ProductSelection();
+                                break;
+                            default:
+                                {
+                                    Console.WriteLine("This not a valid selection. Please type '1' or '2'.");
+                                }
+                                break;
+                        }
+                    }
                 }
-                else if (listItem.ItemCode == desiredItem) { Console.WriteLine("This is not a valid product code. Please type in a correct product code."); }
+
             }
         }
 
 
-        public void CompleteTrasaction()
+        public void CompleteTransaction()
         {
-            Console.WriteLine("Thank you for your business! ");
+            catering.PrintReceipt();
+            Console.WriteLine();
+            Console.WriteLine("Are you sure you would like to make this purchase?");
+            Console.WriteLine("(1) Yes");
+            Console.WriteLine("(2) No");
+            string userInput = Console.ReadLine();
+            switch (userInput)
+            {
+                case "1":
+                    catering.PurchaseConfirmation();
+                    Console.WriteLine("Thank you for your business! ");
+                    break;
+                case "2":
+                    MainMenu();
+                    break;
+                default:
+                    {
+                        Console.WriteLine("That is not a valid answer. Please enter '1' or '2'.");
+                    }
+                    break;
+            }
             Console.ReadLine();
         }
+
     }
 }
 
