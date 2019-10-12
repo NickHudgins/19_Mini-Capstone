@@ -34,32 +34,7 @@ namespace Capstone.Classes
 
             }
 
-<<<<<<< HEAD
-        public bool ReadItemMenu(CateringItem item)
-        {
-            string sourceFile = "C:\\Users\\carters\\Team Exercises\\team1-c-sharp-week4-pair-exercises\\19_Mini-Capstone\\cateringsystem.csv";
-            if (File.Exists(sourceFile))
-            {
-                using (StreamReader sr = new StreamReader(sourceFile))
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        string line = sr.ReadLine();
-                        if (line.Contains(""))
-                        {
-                            return true;
-                        }
-                    }
-                }
-=======
->>>>>>> e6520bf3cd66d123f647ed7403bab21f7df8aee6
-
-
         }
-
-
-
-
     }
 }
 
