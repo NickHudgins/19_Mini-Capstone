@@ -7,35 +7,16 @@ namespace Capstone.Classes
     public class Catering
     {
         public decimal Balance { get; private set; } = 0;
-        public List<CateringItem> items = new List<CateringItem>();
         List<CateringItem> shoppingCart = new List<CateringItem>();
-        Catering catering = new Catering();
-        FileAccess fileAccess = new FileAccess();
-        decimal total = 0;
+        public FileAccess fileAccess { get; set; } = new FileAccess();
+        public decimal total = 0;
 
-        public void ConvertList()
+        //Constructor
+        public Catering ()
         {
             fileAccess.ConvertInfoToList();
-            items.AddRange(fileAccess.menu);
         }
 
-        //CONSTRUCTOR
-        static Catering()
-        {
-            catering.ConvertList();
-        }
-        public Catering()
-        {
-
-        }
-
-
-        //Methods
-
-        public List<CateringItem> ReturnItemsList()
-        {
-            return items;
-        }
 
 
         public string PrintItemMenu()
@@ -49,7 +30,7 @@ namespace Capstone.Classes
             Console.WriteLine(itemCode + itemName + itemPrice + itemClass + itemQty);
             Console.WriteLine("----------------------------------------------------------------------");
 
-            foreach (CateringItem listItem in items)
+            foreach (CateringItem listItem in fileAccess.menu)
             {
                 Console.Write(listItem.ItemCode.ToString().PadRight(10));
                 Console.Write(listItem.ItemName.ToString().PadRight(25));
@@ -85,16 +66,10 @@ namespace Capstone.Classes
 
         public void AddToShoppingCart(string desiredItem, int desiredQty)
         {
-            foreach (CateringItem listItem in items)
+            foreach (CateringItem listItem in fileAccess.menu)
             {
                 if (listItem.ItemCode.ToLower() == desiredItem.ToLower())
                 {
-                    string currentQty = listItem.ItemQty;
-
-                    listItem.ItemQty = desiredQty.ToString();
-                    shoppingCart.Add(listItem);
-
-                    listItem.ItemQty = currentQty;
                     int ItemQtyConvert = int.Parse(listItem.ItemQty);
                     ItemQtyConvert -= desiredQty;
                     if (ItemQtyConvert == 0)
@@ -105,7 +80,15 @@ namespace Capstone.Classes
                     {
                         listItem.ItemQty = ItemQtyConvert.ToString();                        
                     }
+                    string currentQty = listItem.ItemQty;
+                    listItem.ItemQty = desiredQty.ToString();
+                    shoppingCart.Add(listItem);
+                    decimal itemTotalPrice = (listItem.ItemPrice * decimal.Parse(listItem.ItemQty));
+                    total += itemTotalPrice;
+                    listItem.ItemQty = currentQty;
                     
+
+
                 }
             }
         }
@@ -127,7 +110,12 @@ namespace Capstone.Classes
 
             foreach (CateringItem listItem in shoppingCart)
             {
-                decimal itemTotalPrice = listItem.ItemPrice * int.Parse(listItem.ItemQty);
+                string currentQty = listItem.ItemQty;
+               if (listItem.ItemQty == "SOLD OUT")
+                {
+                    listItem.ItemQty = "50";
+                }
+                decimal itemTotalPrice = (listItem.ItemPrice * decimal.Parse(listItem.ItemQty));
 
                 Console.Write(listItem.ItemQty.ToString().PadRight(10));
                 Console.Write(listItem.ItemName.ToString().PadRight(25));
@@ -149,11 +137,11 @@ namespace Capstone.Classes
                 }
                 Console.Write($"${listItem.ItemPrice}".ToString().PadRight(25));
                 Console.WriteLine($"${itemTotalPrice}".ToString().PadRight(15));
-
-                total += itemTotalPrice;
+                listItem.ItemQty = currentQty;
+                
             }
             Console.WriteLine();
-            Console.WriteLine($"Total: {total}");
+            Console.WriteLine($"Total: ${total}");
             return null;
         }
 
@@ -161,12 +149,10 @@ namespace Capstone.Classes
         {
             Balance -= total;
             total = 0;
-            foreach (CateringItem item in shoppingCart)
-            {
-                shoppingCart.Remove(item);
-            }
-            ConvertList();
+            shoppingCart.Clear();
         }
+
+        
     }
 }
 

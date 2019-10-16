@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Capstone.Classes
 {
-    class FileAccess
+    public class FileAccess
     {
         public List<CateringItem> menu = new List<CateringItem>();
         // This class should contain any and all details of access to files
@@ -34,6 +34,50 @@ namespace Capstone.Classes
 
             }
 
+        }
+
+        public void WriteAddMoney(int amount, Catering catering)
+            
+        {
+            string sourceFile = "C:\\Users\\carters\\Team Exercises\\team1-c-sharp-week4-pair-exercises\\19_Mini-Capstone\\Log.txt";
+            if (File.Exists(sourceFile))
+            {
+                using (StreamWriter sw = new StreamWriter(sourceFile))
+                {
+                    sw.Write(DateTime.Now + " ");
+                    sw.Write("ADD MONEY: ");
+                    sw.Write(amount + " ");
+                    sw.WriteLine(catering.Balance + amount);
+
+                }
+            }
+        }
+
+        public void WriteReceipt(string desiredItem, int desiredQty, Catering catering)
+        {
+            foreach (CateringItem item in menu)
+            {
+                if (item.ItemCode == desiredItem)
+                {
+                    decimal totalCost = item.ItemPrice * desiredQty;
+
+                    string sourceFile = "C:\\Users\\carters\\Team Exercises\\team1-c-sharp-week4-pair-exercises\\19_Mini-Capstone\\Log.txt";
+                    if (File.Exists(sourceFile))
+                    {
+                        using (StreamWriter sw = new StreamWriter(sourceFile))
+                        {
+                            sw.Write(DateTime.Now + " ");
+                            sw.Write(item.ItemQty + " ");
+                            sw.Write(item.ItemName + " ");
+                            sw.Write(item.ItemCode + " ");
+                            sw.Write(totalCost + " ");
+                            sw.WriteLine(catering.Balance - totalCost);
+
+                        }
+                    }
+            }
+            
+            }
         }
     }
 }

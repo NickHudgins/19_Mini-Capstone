@@ -7,7 +7,7 @@ namespace Capstone.Classes
 
     public class UserInterface
     {
-        internal FileAccess FileAccess { get => fileAccess; set => fileAccess = value; }
+        //internal FileAccess FileAccess { get => fileAccess; set => fileAccess = value; }
 
         //**ALL USER INTERACTION HAPPENS HERE**
         // This class provides all user communications, but not much else.
@@ -15,13 +15,14 @@ namespace Capstone.Classes
         // All instance of Console.ReadLine and Console.WriteLine should be in this class.
 
         private Catering catering = new Catering();
-        public CateringItem cateringItem = new CateringItem();
-        private FileAccess fileAccess = new FileAccess();
+        //public CateringItem cateringItem = new CateringItem();
+        public FileAccess fileAccess = new FileAccess();
+     
 
 
         public void RunInterface()
         {
-            catering.ConvertList();
+            
             MainMenu();
         }
 
@@ -39,13 +40,11 @@ namespace Capstone.Classes
                         catering.PrintItemMenu();
                         Console.WriteLine();
                         Console.WriteLine("(1) Return To Main Menu ");
-                        Console.WriteLine();
                         string if1 = Console.ReadLine();
                         switch (if1)
                         {
                             case "1":
-                                UserInterface userInterface = new UserInterface();
-                                userInterface.MainMenu();
+                                MainMenu();
                                 break;
                             default:
                                 Console.WriteLine("This is not a valid answer. Please type '1' to return to main menu.");
@@ -54,6 +53,9 @@ namespace Capstone.Classes
                         return;
                     case "2":
                         OrderingInterface();
+                        break;
+                    case "3":
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine();
@@ -116,6 +118,7 @@ namespace Capstone.Classes
             if (int.Parse(amountDeposited) + catering.Balance <= maxBalance)
             {
                 catering.AddMoneyEquation(int.Parse(amountDeposited));
+                fileAccess.WriteAddMoney(int.Parse(amountDeposited), catering);
                 Console.WriteLine($"The money was sucessfully deposited into you account. Your current balance is now ${catering.Balance}.");
             }
             Console.WriteLine();
@@ -144,39 +147,61 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.Write("Please enter the product code you'd like to add to your cart: ");
             string desiredItem = Console.ReadLine();
-            foreach (CateringItem listItem in catering.items)
+            foreach (CateringItem listItem in catering.fileAccess.menu)
             {
                 if (listItem.ItemCode.ToLower() == desiredItem.ToLower())
                 {
                     Console.Write("Please enter the quantity you would like to purchase: ");
                     int desiredQty = int.Parse(Console.ReadLine());
                     Console.WriteLine();
-
-                    if (int.Parse(listItem.ItemQty) >= desiredQty)
+                    if (listItem.ItemQty != "SOLD OUT")
                     {
-                        catering.AddToShoppingCart(desiredItem, desiredQty);
-                        Console.WriteLine($"You have successfully added {listItem.ItemName} (Qty {desiredQty}) to your cart.");
-                        Console.WriteLine("(1) Return To Main Menu");
-                        Console.WriteLine("(2) Add Another Item");
-                        string userInput = Console.ReadLine();
-                        switch (userInput)
+                        if (int.Parse(listItem.ItemQty) >= desiredQty)
                         {
-                            case "1":
-                                MainMenu();
-                                break;
-                            case "2":
-                                ProductSelection();
-                                break;
-                            default:
-                                {
-                                    Console.WriteLine("This not a valid selection. Please type '1' or '2'.");
-                                }
-                                break;
+                            catering.AddToShoppingCart(desiredItem, desiredQty);
+                            fileAccess.WriteReceipt(desiredItem, desiredQty, catering);
+                            Console.WriteLine($"You have successfully added {listItem.ItemName} (Qty {desiredQty}) to your cart.");
+                            Console.WriteLine("(1) Return To Main Menu");
+                            Console.WriteLine("(2) Add Another Item");
+                            string userInput = Console.ReadLine();
+                            switch (userInput)
+                            {
+                                case "1":
+                                    MainMenu();
+                                    break;
+                                case "2":
+                                    ProductSelection();
+                                    break;
+                                default:
+                                    {
+                                        Console.WriteLine("This not a valid selection. Please type '1' or '2'.");
+                                    }
+                                    break;
+                            }
+                        }
+                        else if (int.Parse(listItem.ItemQty) < desiredQty)
+                        {
+                            Console.WriteLine("There is not enough of this product in stock to purchase.");
+                            Console.WriteLine("(1) Return To Main Menu");
+                            Console.WriteLine("(2) Add Another Item");
+                            string userInput = Console.ReadLine();
+                            switch (userInput)
+                            {
+                                case "1":
+                                    MainMenu();
+                                    break;
+                                case "2":
+                                    ProductSelection();
+                                    break;
+                                default:
+                                    {
+                                        Console.WriteLine("This not a valid selection. Please type '1' or '2'.");
+                                    }
+                                    break;
+                            }
                         }
                     }
-                    else if (int.Parse(listItem.ItemQty) < desiredQty)
-                    {
-                        Console.WriteLine("There is not enough of this product in stock to purchase.");
+                    else { Console.WriteLine("This item is sold out.");
                         Console.WriteLine("(1) Return To Main Menu");
                         Console.WriteLine("(2) Add Another Item");
                         string userInput = Console.ReadLine();
@@ -212,8 +237,18 @@ namespace Capstone.Classes
             switch (userInput)
             {
                 case "1":
-                    catering.PurchaseConfirmation();
-                    Console.WriteLine("Thank you for your business! ");
+                    if (catering.Balance < catering.total)
+                    {
+                        Console.WriteLine("You do not have sufficient funds. Please add more money to your account.");
+                        Console.WriteLine("(1) Return To Main Menu");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        catering.PurchaseConfirmation();
+                        Console.WriteLine("Thank you for your business! ");
+                    }
+                    MainMenu(); 
                     break;
                 case "2":
                     MainMenu();
